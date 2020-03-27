@@ -46,12 +46,16 @@ print(outputs.shape)
 print(inputs.shape)
 
 
-labels = tf.reshape(outputs, [10,5])
+labels = tf.reshape(outputs, [inputSize,5])
+
+print("printing layers")
 
 for layer in model.layers:
-    print(layer.output_shape)
+    print(layer.input_shape, layer.output_shape)
 
-model.fit(inputs, labels, steps_per_epoch=200,epochs = 10)
+model.fit(inputs, labels, steps_per_epoch=200,epochs = 5)
+
+model.save("test_model.h5")
 
 
 
