@@ -23,5 +23,6 @@ while True:
     _, bgr_image = img.read()
     orig_image = bgr_image
     bgr_image = cv2.medianBlur(bgr_image, 3)
-    print("test")
-    cv2.imshow("test",bgr_image)
+    hsv_image = cv2.cvtColor(bgr_image, cv2.COLOR_BGR2HSV)
+    cv2.imshow("Threshold lower image", hsv_image)
+    k = cv2.waitKey(5) & 0xFF
