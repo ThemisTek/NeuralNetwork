@@ -4,7 +4,6 @@ from keras.layers import Activation, Dropout, Flatten, Dense
 from cv2 import cv2
 import numpy as np
 import keras
-import tensorflow as tf
 
 def dimensions():
     return [45,45]
