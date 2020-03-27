@@ -49,6 +49,8 @@ def NetworkModel():
     model = keras.Sequential()
     model.add(Conv2D(64,kernel_size=3,input_shape=(img_width,img_height,3)))
     model.add(Conv2D(32, kernel_size=3, activation="relu"))
+    model.add(Conv2D(64,kernel_size=1))
+    model.add(Conv2D(32, kernel_size=3, activation="relu"))
     model.add(Flatten())
     model.add(Dense(units=5,activation='softmax'))
     model.add
