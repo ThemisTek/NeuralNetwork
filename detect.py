@@ -24,5 +24,5 @@ while True:
     orig_image = bgr_image
     bgr_image = cv2.medianBlur(bgr_image, 3)
     hsv_image = cv2.cvtColor(bgr_image, cv2.COLOR_BGR2HSV)
-    cv2.imshow("Threshold lower image", hsv_image)
+    cv2.imshow("Threshold lower image", bgr_image)
     k = cv2.waitKey(5) & 0xFF
