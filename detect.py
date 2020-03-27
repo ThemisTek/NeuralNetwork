@@ -26,7 +26,7 @@ while True:
     image_input =  np.resize(bgr_image,(1,45,45,3))
     output = model.predict(image_input)
     print(output)
-    if(output[1,4]>0.8):
+    if(output[0][4]>0.8):
         print("detected")
     cv2.imshow("Threshold lower image", bgr_image)
     k = cv2.waitKey(5) & 0xFF
