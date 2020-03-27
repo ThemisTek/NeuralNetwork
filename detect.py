@@ -22,4 +22,6 @@ model.load_weights("test_model.h5")
 while True:
     _, bgr_image = img.read()
     orig_image = bgr_image
+    bgr_image = cv2.medianBlur(bgr_image, 3)
+    print("test")
     cv2.imshow("test",bgr_image)
