@@ -23,6 +23,10 @@ while True:
     _, bgr_image = img.read()
     orig_image = bgr_image
     bgr_image = cv2.medianBlur(bgr_image, 3)
-    hsv_image = cv2.cvtColor(bgr_image, cv2.COLOR_BGR2HSV)
+    image_input =  np.resize(bgr_image,(45,45,3))
+    output = model.predict(image_input)
+    print(output)
+    if(output[4]>0.8):
+        print("detected")
     cv2.imshow("Threshold lower image", bgr_image)
     k = cv2.waitKey(5) & 0xFF
