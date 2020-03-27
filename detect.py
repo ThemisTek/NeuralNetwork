@@ -22,4 +22,4 @@ model.load_weights("test_model.h5")
 while True:
     _, bgr_image = img.read()
     orig_image = bgr_image
-    cv2.imshow(bgr_image)
+    cv2.imshow("test",bgr_image)
