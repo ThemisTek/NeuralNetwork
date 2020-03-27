@@ -41,11 +41,18 @@ def NetworkModel():
     # model.add(Dropout(0.5))
     # model.add(Dense(5))
     # model.add(Activation('sigmoid'))
-    model = keras.Sequential([
-        keras.layers.Flatten(input_shape=(img_width, img_height,3)),
-        keras.layers.Dense(128, activation='relu'),
-        keras.layers.Dense(units = 5)
-    ])
+    # model = keras.Sequential([
+    #     keras.layers.Flatten(input_shape=(img_width, img_height,3)),
+    #     keras.layers.Dense(128, activation='relu'),
+    #     keras.layers.Dense(units = 5)
+    # ])
+
+    model = keras.Sequential()
+    model.add(Conv2D(64,kernel_size=1,input_shape=(img_width,img_height,3)))
+    model.add(Conv2D(32, kernel_size=3, activation="relu"))
+    model.add(Flatten())
+    model.add(Dense(units=5))
+
 
     model.compile(optimizer='adam',
               loss='categorical_crossentropy',
