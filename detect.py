@@ -23,7 +23,7 @@ while True:
     _, bgr_image = img.read()
     orig_image = bgr_image
     bgr_image = cv2.medianBlur(bgr_image, 3)
-    image_input =  np.resize(bgr_image,(45,45,3))
+    image_input =  np.resize(bgr_image,(1,45,45,3))
     output = model.predict(image_input)
     print(output)
     if(output[4]>0.8):
