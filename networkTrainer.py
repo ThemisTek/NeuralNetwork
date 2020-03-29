@@ -53,7 +53,11 @@ print("printing layers")
 for layer in model.layers:
     print(layer.input_shape, layer.output_shape)
 
-model.fit(inputs, labels, steps_per_epoch=200,epochs = 5)
+model.fit(inputs, labels, steps_per_epoch=10000,epochs = 1)
+predictions = model.predict(inputs)
+print(predictions)
+print(outputs)
+
 
 model.save("test_model.h5")
 
