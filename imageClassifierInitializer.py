@@ -15,7 +15,7 @@ class Detector :
         self.height = height
         self.detected = detected
 
-folderPath = dirpath + r"\Capture\*.png"
+folderPath = dirpath + r"\Capture\Circle\*.png"
 
 print(folderPath)
 

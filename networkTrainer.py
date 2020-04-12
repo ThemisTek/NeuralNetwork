@@ -14,31 +14,27 @@ fashion_mnist = keras.datasets.fashion_mnist
 
 (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
 
-print(type(train_labels),train_labels[0])
-
-print(train_images.shape,train_labels.shape)
-
 np_load_old = np.load
 
 np.load = lambda *a,**k: np_load_old(*a, allow_pickle=True, **k)
 
-objectReader = np.load("test.npy")
+objectReader = np.load("CircleRead.npy")
 
-model = networkClass.NetworkModel()
+model = networkClass.NetworkModel(2)
 
 d = networkClass.dimensions()
 width = d[0]
 height = d[1]
 inputSize = len(objectReader)
-inputs=np.empty((inputSize,width,height,3))
-outputs = np.empty((inputSize,5,1))
+inputs=np.empty((inputSize,width,height,1))
+outputs = np.empty((inputSize,3,1))
 
 
 i=0
 
 for o in objectReader:
-    outputs[i] = networkClass.detector2Output(o)
-    inputs[i] = networkClass.detector2Input(o)
+    outputs[i] = networkClass.detector2Output(o,2)
+    inputs[i] = networkClass.detector2Input(o,2)
     i=i+1
 
 
@@ -46,20 +42,20 @@ print(outputs.shape)
 print(inputs.shape)
 
 
-labels = tf.reshape(outputs, [inputSize,5])
+labels = tf.reshape(outputs, [inputSize,3])
 
 print("printing layers")
 
 for layer in model.layers:
     print(layer.input_shape, layer.output_shape)
 
-model.fit(inputs, labels, steps_per_epoch=10000,epochs = 1)
+model.fit(inputs, labels, steps_per_epoch=100,epochs = 7)
 predictions = model.predict(inputs)
 print(predictions)
 print(outputs)
 
 
-model.save("test_model.h5")
+model.save("test_modelCircle.h5")
 
 
 

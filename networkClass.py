@@ -24,35 +24,18 @@ class BlackWhiteDetector :
         self.down = down
         self.notDetected = notDetected
 
+class CircleCrossDetector :
+    def __init__(self,circle,cross,notDetected,imgName):
+        self.imgName = imgName
+        self.circle = circle
+        self.cross = cross
+        self.notDetected = notDetected
+
 
 def NetworkModel(mode = 1):
     d = dimensions()
     img_width = d[0]
     img_height = d[1]
-
-    # model = Sequential()
-    # model.add(Conv2D(32, (3, 3), input_shape=( img_width, img_height,3)))
-    # model.add(Activation('relu'))
-    # model.add(MaxPooling2D(pool_size=(2, 2)))
-
-    # model.add(Conv2D(32, (3, 3)))
-    # model.add(Activation('relu'))
-    # model.add(MaxPooling2D(pool_size=(2, 2)))
-
-    # model.add(Conv2D(64, (3, 3)))
-    # model.add(Activation('relu'))
-    # model.add(MaxPooling2D(pool_size=(2, 2)))
-
-    # model.add(Dense(64))
-    # model.add(Activation('relu'))
-    # model.add(Dropout(0.5))
-    # model.add(Dense(5))
-    # model.add(Activation('sigmoid'))
-    # model = keras.Sequential([
-    #     keras.layers.Flatten(input_shape=(img_width, img_height,3)),
-    #     keras.layers.Dense(128, activation='relu'),
-    #     keras.layers.Dense(units = 5)
-    # ])
 
     model = []
 
@@ -72,18 +55,12 @@ def NetworkModel(mode = 1):
               metrics=['accuracy'])
     elif(mode == 2):
         model = keras.Sequential()
-        model.add(Conv2D(32, kernel_size=(5, 5), strides=(1, 1),
-                    activation='relu',
-                    input_shape=(img_width,img_height,1)))
-        model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-        model.add(Conv2D(64, (5, 5), activation='relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
+
+        model.add(Conv2D(64, kernel_size=3, activation="relu", input_shape=(img_width,img_height,1)))
+        model.add(Conv2D(32, kernel_size=3, activation="relu"))
         model.add(Flatten())
-        model.add(Dense(100, activation='relu'))
-        model.add(Dense(3, activation='softmax'))
-        model.compile(loss=keras.losses.categorical_crossentropy,
-              optimizer=keras.optimizers.SGD(lr=0.01),
-              metrics=['accuracy'])
+        model.add(Dense(3, activation="softmax"))
+        model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 
     
@@ -104,9 +81,9 @@ def detector2Output(detector,mode = 1):
         output[4,0]=detector.detected
     elif(mode == 2):
         output = np.empty((3,1))
-        output[0,0] = detector.up
-        output[0,1] = detector.down
-        output[0,2] = detector.notDetected
+        output[0,0] = detector.circle
+        output[1,0] = detector.cross
+        output[2,0] = detector.notDetected
     
     return output
 
