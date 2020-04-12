@@ -23,9 +23,9 @@ while True:
     _, bgr_image = img.read()
     orig_image = bgr_image
     bgr_image = cv2.medianBlur(bgr_image, 3)
-    cv2.imshow("test",bgr_image)
     image = cv2.cvtColor(bgr_image,cv2.COLOR_BGR2GRAY)  
-    image_input =  np.resize(bgr_image,(1,45,45,1))
+    cv2.imshow("test",image)
+    image_input =  np.resize(image,(1,45,45,1))
     output = model.predict(image_input)
     print(output)
     k = cv2.waitKey(5) & 0xFF
