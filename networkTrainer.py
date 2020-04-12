@@ -49,13 +49,13 @@ print("printing layers")
 for layer in model.layers:
     print(layer.input_shape, layer.output_shape)
 
-model.fit(inputs, labels, steps_per_epoch=100,epochs = 7)
+model.fit(inputs, labels, steps_per_epoch=100,epochs = 2)
 predictions = model.predict(inputs)
 print(predictions)
 print(outputs)
 
-
-model.save("test_modelCircle.h5")
+1
+model.save_weights(filepath='final_weight.h5')
 
 
 

@@ -26,6 +26,8 @@ while True:
     image = cv2.cvtColor(bgr_image,cv2.COLOR_BGR2GRAY)  
     cv2.imshow("test",image)
     image_input =  np.resize(image,(1,45,45,1))
+    image_input = image.astype(float)
+    image_input = np.divide(image,255)
     output = model.predict(image_input)
     print(output)
     k = cv2.waitKey(5) & 0xFF
