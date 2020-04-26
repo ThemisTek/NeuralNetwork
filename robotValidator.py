@@ -1,9 +1,8 @@
-from picar.SunFounder_PCA9685 import Servo
-import picar
+# from picar.SunFounder_PCA9685 import Servo
+# import picar
 from time import sleep
 import cv2
 import numpy as np
-import picar
 import os
 from keras.applications import VGG16
 from keras import models
@@ -12,7 +11,7 @@ from keras import optimizers
 from keras.preprocessing.image import ImageDataGenerator
 
 
-picar.setup()
+# picar.setup()
 img = cv2.VideoCapture(-1)
 SCREEN_WIDTH = 160
 SCREEN_HIGHT = 120
