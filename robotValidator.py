@@ -41,6 +41,8 @@ model.add(layers.Dropout(0.5))
 model.add(layers.Dense(3, activation='softmax'))
 
 
+print("loading Weights")
+
 model.load_weights("shoe_orange.h5")
 
 
