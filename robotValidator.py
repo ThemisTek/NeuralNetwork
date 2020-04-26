@@ -22,7 +22,6 @@ CENTER_X = SCREEN_WIDTH/2
 CENTER_Y = SCREEN_HIGHT/2
 image_size = 224
 
-
 vgg_conv = VGG16(weights='imagenet', include_top=False, input_shape=(image_size, image_size, 3))
 
 for layer in vgg_conv.layers[:-4]:
@@ -40,25 +39,9 @@ model.add(layers.Dense(1024, activation='relu'))
 model.add(layers.Dropout(0.5))
 model.add(layers.Dense(3, activation='softmax'))
 
-
-print("loading Weights")
+dirpath = os.getcwd()
 
 model.load_weights("shoe_orange.h5")
-
-
-val_batchsize=2
-validation_dir = "./validation"
-
-validation_datagen = ImageDataGenerator(rescale=1./255)
-
-validation_generator = validation_datagen.flow_from_directory(
-        validation_dir,
-        target_size=(image_size, image_size),
-        batch_size=val_batchsize,
-        class_mode='categorical',
-        shuffle=False)
-
-fnames = validation_generator.filenames
 
 while True:
     _, bgr_image = img.read()

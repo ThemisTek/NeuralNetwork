@@ -8,7 +8,7 @@ import glob
 from cv2 import cv2
 import numpy as np
 
-image_size = 45
+image_size = 224
 
 vgg_conv = VGG16(weights='imagenet', include_top=False, input_shape=(image_size, image_size, 3))
 
@@ -25,7 +25,7 @@ model.add(vgg_conv)
 model.add(layers.Flatten())
 model.add(layers.Dense(1024, activation='relu'))
 model.add(layers.Dropout(0.5))
-model.add(layers.Dense(2, activation='softmax'))
+model.add(layers.Dense(3, activation='softmax'))
 
 dirpath = os.getcwd()
 
