@@ -20,6 +20,7 @@ img.set(3,SCREEN_WIDTH)
 img.set(4,SCREEN_HIGHT)
 CENTER_X = SCREEN_WIDTH/2
 CENTER_Y = SCREEN_HIGHT/2
+image_size = 224
 
 
 vgg_conv = VGG16(weights='imagenet', include_top=False, input_shape=(image_size, image_size, 3))
@@ -37,6 +38,7 @@ model.add(vgg_conv)
 model.add(layers.Flatten())
 model.add(layers.Dense(1024, activation='relu'))
 model.add(layers.Dropout(0.5))
+model.add(layers.Dense(3, activation='softmax'))
 
 
 model.load_weights("shoe_orange.h5")
