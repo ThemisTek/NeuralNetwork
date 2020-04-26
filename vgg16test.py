@@ -5,9 +5,11 @@ from keras import optimizers
 from keras.preprocessing.image import ImageDataGenerator
 import os
 import glob
+from tensorflow.python.client import device_lib
 
-image_size = 45
+print(device_lib.list_local_devices())
 
+image_size = 224
 
 
 vgg_conv = VGG16(weights='imagenet', include_top=False, input_shape=(image_size, image_size, 3))
@@ -25,7 +27,7 @@ model.add(vgg_conv)
 model.add(layers.Flatten())
 model.add(layers.Dense(1024, activation='relu'))
 model.add(layers.Dropout(0.5))
-model.add(layers.Dense(2, activation='softmax'))
+model.add(layers.Dense(3, activation='softmax'))
 
 
 train_datagen = ImageDataGenerator(
@@ -40,7 +42,7 @@ validation_datagen = ImageDataGenerator(rescale=1./255)
 
 train_dir = "./train"
 validation_dir = "./validation"
-train_batchsize = 20
+train_batchsize = 80
 
 train_generator = train_datagen.flow_from_directory(
         train_dir,
@@ -48,7 +50,7 @@ train_generator = train_datagen.flow_from_directory(
         batch_size=train_batchsize,
         class_mode='categorical')
 
-val_batchsize=2
+val_batchsize=20
 
 validation_generator = validation_datagen.flow_from_directory(
         validation_dir,
@@ -73,7 +75,7 @@ model.compile(loss='categorical_crossentropy',
 history = model.fit_generator(
       train_generator,
       steps_per_epoch=train_generator.samples/train_generator.batch_size ,
-      epochs=20,
+      epochs=10,
       validation_data=validation_generator,
       validation_steps=validation_generator.samples/validation_generator.batch_size,
       verbose=1)
