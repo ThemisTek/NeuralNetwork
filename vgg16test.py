@@ -6,28 +6,37 @@ from keras.preprocessing.image import ImageDataGenerator
 import os
 import glob
 from tensorflow.python.client import device_lib
+from keras.applications.inception_v3 import InceptionV3
+from keras.preprocessing import image
+from keras.models import Model
+from keras.layers import Dense, GlobalAveragePooling2D
+from keras import backend as K
+from keras.layers import Input, Flatten, Dense
 
 print(device_lib.list_local_devices())
 
 image_size = 224
 
+#input_shape=(image_size, image_size, 3)
+vgg_conv = VGG16(weights='imagenet', include_top=False, )
 
-vgg_conv = VGG16(weights='imagenet', include_top=False, input_shape=(image_size, image_size, 3))
-
-for layer in vgg_conv.layers[:-4]:
+for layer in vgg_conv.layers:
     layer.trainable = False
 
 
 for layer in vgg_conv.layers:
     print(layer, layer.trainable)
 
-model = models.Sequential()
+x = Flatten(name='flatten')(vgg_conv.output)
+x = Dense(4096, activation='relu', name='fc1')(x)
+x = Dense(4096, activation='relu', name='fc2')(x)
+x = Dense(3, activation='softmax', name='predictions')(x)
 
-model.add(vgg_conv)
-model.add(layers.Flatten())
-model.add(layers.Dense(1024, activation='relu'))
-model.add(layers.Dropout(0.5))
-model.add(layers.Dense(3, activation='softmax'))
+input = Input(shape=(3,image_size,image_size),name = 'image_input')
+
+my_model = Model(input=input, output=x)
+
+my_model.summary()
 
 
 train_datagen = ImageDataGenerator(

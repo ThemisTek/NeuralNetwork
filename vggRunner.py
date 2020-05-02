@@ -10,7 +10,7 @@ import numpy as np
 
 image_size = 224
 
-vgg_conv = VGG16(weights='imagenet', include_top=False, input_shape=(image_size, image_size, 3))
+vgg_conv = VGG16(weights='imagenet', include_top=True, input_shape=(image_size, image_size, 3))
 
 for layer in vgg_conv.layers[:-4]:
     layer.trainable = False
@@ -31,7 +31,7 @@ dirpath = os.getcwd()
 
 model.load_weights("shoe_orange.h5")
 
-folderPath = dirpath + r"\Testing\*.png"
+folderPath = dirpath + r"\Testing\*.jpg"
 
 print(folderPath)
 
